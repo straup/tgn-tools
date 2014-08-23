@@ -14,16 +14,21 @@ if __name__ == '__main__':
     parser = optparse.OptionParser()
 
     parser.add_option('--input', dest='input',
-                        help='',
+                        help='The N-triples file you want to parse.',
                         action='store')
 
     parser.add_option('--output', dest='output',
-                      help='',
+                      help='Where to write your CSV output. If not defined then output is sent to STDOUT.',
                       default=None,
                       action='store')
 
     parser.add_option('--fieldnames', dest='fieldnames',
-                      help='',
+                      help='A comma-separated list of keys to use for the CSV header. If not defined the script will pre-parse the file to determined the list.',
+                      default=None,
+                      action='store')
+
+    parser.add_option('--ignore', dest='ignore',
+                      help='A comma-separated list of keys (and their values) to ignore.',
                       default=None,
                       action='store')
 
@@ -45,7 +50,9 @@ if __name__ == '__main__':
         out = sys.stdout
 
     writer = None
+
     fieldnames = None
+    ignore = None
 
     if options.fieldnames:
 
@@ -53,6 +60,10 @@ if __name__ == '__main__':
 
         if not 'uri' in fieldnames:
             fieldnames.append('uri')
+
+    if options.ignore:
+
+        ignore = options.ignore.split(",")
 
     # to do: read from STDIN
 
@@ -93,4 +104,5 @@ if __name__ == '__main__':
 
         uri = s
 
-        details[p] = o
+        if not p in ignore:
+            details[p] = o
