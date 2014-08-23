@@ -1,16 +1,7 @@
 #!/usr/bin/env python
 
 import tgn
-import logginging
-
-def prepare_details(predicates):
-
-    details = {}
-
-    for key, ignore in predicates.items():
-        details[key] = ''
-
-    return details
+import logging
 
 if __name__ == '__main__':
 
@@ -18,18 +9,67 @@ if __name__ == '__main__':
     import pprint
     import csv
 
-    uri = None
-    details = None
+    import optparse
 
-    out = sys.stdout
+    parser = optparse.OptionParser()
+
+    parser.add_option('--input', dest='input',
+                        help='',
+                        action='store')
+
+    parser.add_option('--output', dest='output',
+                      help='',
+                      default=None,
+                      action='store')
+
+    parser.add_option('--fieldnames', dest='fieldnames',
+                      help='',
+                      default=None,
+                      action='store')
+
+    parser.add_option("-v", "--verbose", dest="verbose",
+                      help="enable chatty logging; default is false", 
+                      action="store_true", default=False)
+
+    options, args = parser.parse_args()
+    
+    if options.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+
+    if options.output:
+
+        out = open(options.output, 'w')
+    else:
+        out = sys.stdout
+
     writer = None
+    fieldnames = None
 
-    path = sys.argv[1]
+    if options.fieldnames:
+
+        fieldnames = options.fieldnames.split(",")
+
+        if not 'uri' in fieldnames:
+            fieldnames.append('uri')
+
+    # to do: read from STDIN
+
+    path = options.input
     nt = tgn.nt(path)
 
-    predicates = nt.predicates()
+    if not fieldnames:
+        predicates = nt.predicates()
+        fieldnames = predicates.keys()
 
-    for s,p,o in tgn.parse():
+    uri = None
+    details = {}
+
+    for key in fieldnames:
+        details[key] = ''
+
+    for s,p,o in nt.parse():
 
         if uri and uri != s:
 
@@ -37,7 +77,6 @@ if __name__ == '__main__':
 
             if not writer:
 
-                fieldnames = details.keys()
                 logging.debug("setup writer with columns %s" % ",".join(fieldnames))
 
                 writer = csv.DictWriter(out, fieldnames=fieldnames)
@@ -48,12 +87,10 @@ if __name__ == '__main__':
             writer.writerow(details)
 
             uri = None
-            details = None
 
-            sys.exit()
+            for k, v in details.items():
+                details[k] = ''
 
-        if not uri:
-            details = prepare_details(predicates)
-            
         uri = s
+
         details[p] = o
