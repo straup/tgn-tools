@@ -1,6 +1,8 @@
 # tgn-tools
 
-Various tools to make working with the [Getty TGN linked open data dumps](http://blogs.getty.edu/iris/getty-thesaurus-of-geographic-names-released-as-linked-open-data/) less painful. Because nothing says _"this is why we can't have nice things"_ like a single file containing 17GB worth of RDF triples...
+Various tools to make working with the [Getty TGN linked open data dumps](http://blogs.getty.edu/iris/getty-thesaurus-of-geographic-names-released-as-linked-open-data/) less painful.
+
+Because nothing says _"This is why we can't have nice things"_ like a single file containing 17GB worth of RDF triples...
 
 Basically the goal is to create a set of tools for parsing the data in streams or for generating derivative representations which mean never having to deal with the hassle of loading this stuff in to a triple store or trying to wrap your head around SPARQL queries.
 
@@ -30,3 +32,8 @@ It is assumed that at some point this will yield unexpected results or hilarity 
 ## To do
 
 * A lot, probably.
+
+## See also:
+
+* http://blogs.getty.edu/iris/getty-thesaurus-of-geographic-names-released-as-linked-open-data/
+* http://vocab.getty.edu
