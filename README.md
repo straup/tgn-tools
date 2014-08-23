@@ -8,12 +8,14 @@ If nothing else it might useful for generating simple CSV files which can be com
 
 ## Example
 
-    path = "TGNOut_Coordinates.nt"
-    nt = tgn.nt(path)
+	import tgn
+   
+	path = "TGNOut_Coordinates.nt"
+	nt = tgn.nt(path)
 
-    for s,p,o in tgn.parse():
+	for s,p,o in nt.parse():
 
-    	# do something with each statement
+		# do something with each statement
 
 The `parse` methods parses and then [yields](https://docs.python.org/2/reference/simple_stmts.html#the-yield-statement) each line in your *.nt file. We are still returning a triple but each part has been explicitly cast as a string. Predicates are explicitly simplified by default, according to the following rules:
 
