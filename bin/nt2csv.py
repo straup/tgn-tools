@@ -104,5 +104,5 @@ if __name__ == '__main__':
 
         uri = s
 
-        if not p in ignore:
+        if ignore and not p in ignore:
             details[p] = o
