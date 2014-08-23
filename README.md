@@ -19,7 +19,7 @@ If nothing else it might useful for generating simple CSV files which can be com
 
 		# do something with each statement
 
-The `parse` methods parses and then [yields](https://docs.python.org/2/reference/simple_stmts.html#the-yield-statement) each line in your *.nt file. It returns still returns a triple (containing a subjet, predicate and object) but each part has been explicitly cast as a string. Predicates are explicitly simplified by default, according to the following rules:
+The `parse` methods parses and then [yields](https://docs.python.org/2/reference/simple_stmts.html#the-yield-statement) each line in your *.nt file. It returns still returns a triple (containing a subject, predicate and object in that order) but each part has been explicitly cast as a string. Predicates are explicitly simplified by default, according to the following rules:
 
 * The predicate is replaced with the basename of its URI
 * If the resultant predicate contains an anchor (for example `#type`) then the predicate is replaced with the value following the hash mark
