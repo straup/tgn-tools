@@ -29,7 +29,7 @@ class nt:
         predicates = {}
         line = 0
 
-        for s,p,o in tgn.parse():
+        for s,p,o in self.parse():
 
             if predicates.get(p, False):
                 predicates[p] += 1
@@ -43,7 +43,7 @@ class nt:
 
     def prepare_statement(self, stmt):
 
-        s, p, o = map(str, stmt)
+        s, p, o = map(unicode, stmt)
 
         if self.simplify_predicates:
 
