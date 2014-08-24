@@ -58,8 +58,8 @@ if __name__ == '__main__':
 
         fieldnames = options.fieldnames.split(",")
 
-        if not 'uri' in fieldnames:
-            fieldnames.append('uri')
+    if not 'uri' in fieldnames:
+        fieldnames.append('uri')
 
     if options.ignore:
 
