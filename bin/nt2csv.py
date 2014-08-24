@@ -68,7 +68,7 @@ if __name__ == '__main__':
     # to do: read from STDIN
 
     path = options.input
-    nt = tgn.nt(path)
+    nt = tgn.nt(file=path)
 
     if not fieldnames:
         predicates = nt.predicates()

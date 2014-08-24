@@ -8,12 +8,21 @@ Basically the goal is to create a set of tools for parsing the data in streams o
 
 If nothing else it might useful for generating simple CSV files which can be combined in to more useful [GeoJSON files](https://github.com/straup/tgn-geojson). We'll see.
 
-## Example
+## Example - local file
 
 	import tgn
    
 	path = "TGNOut_Coordinates.nt"
-	nt = tgn.nt(path)
+	nt = tgn.nt(file=path)
+
+	for s,p,o in nt.parse():
+
+		# do something with each statement
+
+# Example - remote URL
+
+  	url = "http://vocab.getty.edu/tgn/1000095.nt"
+	nt = tgn.nt(url=url)
 
 	for s,p,o in nt.parse():
 
